@@ -76,7 +76,7 @@ export class RxSocketSubject<T> extends RxSocket<T> implements Destroyable {
 		this.setReceiveSource(onReceive);
 	}
 
-	public pipeTo(destination: RxSocket<T>): void {
-		this.pipe(destination.onSend, destination.onReceive);
+	public intercept(source: RxSocket<T>): void {
+		this.pipe(source.onSend, source.onReceive);
 	}
 }
