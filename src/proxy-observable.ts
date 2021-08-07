@@ -64,8 +64,8 @@ export class ProxyObservable<T> implements Subscribable<T>, Unsubscribable, Dest
 	public clearSource(): void {
 		if (!isUnsubscribable(this.activeSourceSubscription)) return;
 		this.activeSourceSubscription!.unsubscribe();
-		this.onCompleteSubject.next();
 		this.activeSourceSubscription = null;
+		this.onCompleteSubject.next();
 	}
 
 	public asObservable(): Observable<T> {

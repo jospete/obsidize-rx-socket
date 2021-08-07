@@ -1,4 +1,4 @@
-import { OperatorFunction } from 'rxjs';
+import { OperatorFunction, concat, defer } from 'rxjs';
 import { filter, map, scan } from 'rxjs/operators';
 import { identity } from 'lodash';
 
@@ -38,12 +38,22 @@ export const mutateBufferUntilState = <T>(
  * Emits all buffered values up until (and including) the value for which the predicate returns a truthy value.
  */
 export const bufferUntil = <T>(
-	predicate: BufferUntilPredicate<T>
-): OperatorFunction<T, T[]> => source => source.pipe(
-	scan(
-		(state: BufferUntilState<T>, value: T) => mutateBufferUntilState(predicate, state, value),
-		{ buffer: [], payload: null }
-	),
-	map(state => state.payload as any),
-	filter(identity)
-);
+	predicate: BufferUntilPredicate<T>,
+	flushOnComplete?: boolean
+): OperatorFunction<T, T[]> => source => {
+
+	const state: BufferUntilState<T> = { buffer: [], payload: null };
+
+	const aliveStream = source.pipe(
+		scan((_, value: T) => mutateBufferUntilState(predicate, state, value), state),
+		map(() => state.payload as any),
+	);
+
+	const onCompleteStream = defer(() => {
+		return Promise.resolve(flushOnComplete ? state.buffer : undefined);
+	});
+
+	return concat(aliveStream, onCompleteStream).pipe(
+		filter(identity)
+	);
+};
