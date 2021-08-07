@@ -6,13 +6,13 @@ import { JsonBufferMapOptions, JsonBufferMapUtility } from './json-buffer-map-op
 import { bufferUntil } from './buffer-until';
 import { splitInclusive } from './utility';
 
-export const mapJsonToText = <T>(
+export const mapJsonToString = <T>(
 	options: JsonBufferMapOptions = JsonBufferMapUtility.defaultOptions
 ): OperatorFunction<T, string> => source => source.pipe(
 	map(v => JsonBufferMapUtility.jsonToStringWithTerminator(v, options))
 );
 
-export const mapTextToBuffer = (
+export const mapStringToBuffer = (
 	options: JsonBufferMapOptions = JsonBufferMapUtility.defaultOptions
 ): OperatorFunction<string, Uint8Array> => source => source.pipe(
 	map(v => options.stringToBuffer(v))
@@ -21,11 +21,11 @@ export const mapTextToBuffer = (
 export const mapJsonToBuffer = <T>(
 	options: JsonBufferMapOptions = JsonBufferMapUtility.defaultOptions
 ): OperatorFunction<T, Uint8Array> => source => source.pipe(
-	mapJsonToText(options),
-	mapTextToBuffer(options)
+	mapJsonToString(options),
+	mapStringToBuffer(options)
 );
 
-export const mapBufferToText = (
+export const mapBufferToString = (
 	options: JsonBufferMapOptions = JsonBufferMapUtility.defaultOptions
 ): OperatorFunction<Uint8Array, string> => source => source.pipe(
 	map(v => options.bufferToString(v))
@@ -34,7 +34,9 @@ export const mapBufferToText = (
 export const bufferUntilTerminator = (
 	options: JsonBufferMapOptions = JsonBufferMapUtility.defaultOptions
 ): OperatorFunction<string, string[]> => source => source.pipe(
-	mergeMap(text => from(splitInclusive(text, options.terminator))),
+	map(str => splitInclusive(str, options.terminator).filter(identity)),
+	filter(strArray => size(strArray) > 0),
+	mergeMap(strArray => from(strArray)),
 	filter(identity),
 	bufferUntil(v => v === options.terminator),
 );
@@ -46,7 +48,7 @@ export const bufferUntilTerminatorExclusive = (
 	map(v => slice(v, 0, size(v) - 1))
 );
 
-export const mapTextToJson = <T>(
+export const mapStringToJson = <T>(
 	options: JsonBufferMapOptions = JsonBufferMapUtility.defaultOptions
 ): OperatorFunction<string, T> => source => source.pipe(
 	map(v => options.stringToJson(v))
@@ -55,8 +57,8 @@ export const mapTextToJson = <T>(
 export const mapBufferToJson = <T>(
 	options: JsonBufferMapOptions = JsonBufferMapUtility.defaultOptions
 ): OperatorFunction<Uint8Array, T> => source => source.pipe(
-	mapBufferToText(options),
+	mapBufferToString(options),
 	bufferUntilTerminatorExclusive(options),
 	map(v => join(v, '')),
-	mapTextToJson(options)
+	mapStringToJson(options)
 );
