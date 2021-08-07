@@ -81,7 +81,7 @@ describe('operators', () => {
 	describe('mapBufferToJson()', () => {
 
 		it('collects values ntila a terminator is found, and omits the terminator from the output', async () => {
-			const input = JsonBufferMapUtility.jsonToBuffer('{"message":"hello"}');
+			const input = JsonBufferMapUtility.jsonToBuffer({ message: "hello" });
 			const result = await of(input).pipe(mapBufferToJson(), first()).toPromise();
 			expect(result).toEqual({ message: 'hello' });
 		});

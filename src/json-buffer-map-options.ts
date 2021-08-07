@@ -1,3 +1,5 @@
+import { isString } from 'lodash';
+
 export interface JsonBufferMapOptions {
 	terminator: string;
 	jsonToString(value: any): string;
@@ -9,8 +11,10 @@ export interface JsonBufferMapOptions {
 export namespace JsonBufferMapUtility {
 
 	export const NULL_TERMINATOR = '\0';
-	export const jsonToString = JSON.stringify;
-	export const stringToJson = JSON.parse;
+
+	// Don't allow "double wrapping" of string values by default
+	export const jsonToString = (v: string) => isString(v) ? v : JSON.stringify(v);
+	export const stringToJson = (v: any) => JSON.parse(v);
 	export const stringToUint8Array = (v: string) => (new TextEncoder().encode(v));
 	export const uint8ArrayToString = (v: Uint8Array) => (new TextDecoder().decode(v));
 

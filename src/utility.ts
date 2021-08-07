@@ -1,4 +1,4 @@
-import { isFunction, get, every, forEach, split } from 'lodash';
+import { isFunction, get, every, forEach, split, isString, isEmpty } from 'lodash';
 import { Subject } from 'rxjs';
 
 export const isSubscribable = (value: any): boolean => {
@@ -30,6 +30,10 @@ export const allSubjectsDestroyed = (subjects: Subject<any>[]): boolean => {
 	return every(subjects, isSubjectDestroyed);
 };
 
+export const isPopulatedString = (value: any): boolean => {
+	return isString(value) && !isEmpty(value);
+};
+
 export const splitInclusive = (value: string, separator: string): string[] => {
-	return split(value, new RegExp(separator, 'g'));
+	return split(value, new RegExp('(' + separator + ')', 'g')).filter(isPopulatedString);
 };
