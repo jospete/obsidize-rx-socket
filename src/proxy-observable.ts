@@ -1,6 +1,5 @@
 import { Observer, Subject, Subscribable, Unsubscribable, merge, throwError, Observable } from 'rxjs';
 import { mergeMap, share, takeUntil } from 'rxjs/operators';
-import { isObject } from 'lodash';
 
 import { allSubjectsDestroyed, destroyAllSubjects, isSubscribable, isUnsubscribable } from './utility';
 import { Destroyable } from './destroyable';
@@ -12,7 +11,7 @@ import { Destroyable } from './destroyable';
  * This allows us to hot-swap input and output streams without needing to manually recover
  * other subscribers to this instance.
  */
-export class ProxyObservable<T> implements Subscribable<T>, Unsubscribable, Destroyable {
+export class ProxyObservable<T> implements Destroyable {
 
 	protected readonly onNextSubject = new Subject<T>();
 	protected readonly onErrorSubject = new Subject<T>();
@@ -38,21 +37,12 @@ export class ProxyObservable<T> implements Subscribable<T>, Unsubscribable, Dest
 		];
 	}
 
-	public unsubscribe(): void {
-		this.clearSource();
-	}
-
 	public destroy(errorMessage?: string): void {
 		destroyAllSubjects(this.getSubjectGroup(), errorMessage);
 	}
 
 	public isDestroyed(): boolean {
 		return allSubjectsDestroyed(this.getSubjectGroup());
-	}
-
-	public subscribe(next?: any, error?: any, complete?: any): Unsubscribable {
-		const observer: Observer<T> = isObject(next) ? (next as any) : { next, error, complete };
-		return this.asObservable().subscribe(observer);
 	}
 
 	public setSource(source: Subscribable<T>): void {
