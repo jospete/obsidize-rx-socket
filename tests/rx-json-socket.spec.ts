@@ -12,7 +12,7 @@ describe('RxJsonSocket', () => {
 
 		const receiveSource = new Subject<Uint8Array>();
 		const socket = new RxJsonSocket();
-		const socketBuffer = socket.createBufferSocket();
+		const socketBuffer = socket.bufferSocket;
 
 		socketBuffer.setReceiveSource(receiveSource);
 

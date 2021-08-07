@@ -8,10 +8,14 @@ import { RxSocketSubject } from './rx-socket-subject';
  */
 export class RxJsonSocket extends RxSocketSubject<any> {
 
+	public readonly bufferSocket: RxSocketSubject<Uint8Array>;
+
 	constructor(
 		public options: JsonBufferMapOptions = JsonBufferMapUtility.defaultOptions
 	) {
 		super();
+		this.bufferSocket = new RxSocketSubject<Uint8Array>();
+		this.setBufferSocket(this.bufferSocket);
 	}
 
 	public jsonToBuffer(value: any): Uint8Array {
@@ -22,14 +26,8 @@ export class RxJsonSocket extends RxSocketSubject<any> {
 		return JsonBufferMapUtility.bufferToJson(value, this.options);
 	}
 
-	public setBufferSocket(bufferSocket: RxSocketSubject<Uint8Array>): void {
+	protected setBufferSocket(bufferSocket: RxSocketSubject<Uint8Array>): void {
 		bufferSocket.setSendSource(this.onSend.pipe(mapJsonToBuffer(this.options)));
 		this.setReceiveSource(bufferSocket.onReceive.pipe(mapBufferToJson(this.options)));
-	}
-
-	public createBufferSocket(): RxSocketSubject<Uint8Array> {
-		const result = new RxSocketSubject<Uint8Array>();
-		this.setBufferSocket(result);
-		return result;
 	}
 }

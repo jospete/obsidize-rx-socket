@@ -1,6 +1,6 @@
-import { delay, first } from 'rxjs/operators';
+import { delay, first, tap } from 'rxjs/operators';
 
-import { RxJsonSocket } from '../src';
+import { JsonBufferMapUtility, RxJsonSocket } from '../src';
 
 describe('General Usage', () => {
 
@@ -10,29 +10,30 @@ describe('General Usage', () => {
 		const receiveMessage = { message: 'world!' };
 
 		const client = new RxJsonSocket();
-		const clientBuffer = client.createBufferSocket();
 		const clientReceiveSpy = jasmine.createSpy('clientReceiveSpy');
 
 		const server = new RxJsonSocket();
-		const serverBuffer = server.createBufferSocket();
-		const serverReceiveSpy = jasmine.createSpy('serverReceiveSpy').and.callFake(v => {
-			if (v && v.message === sendMessage.message) {
-				server.emit(receiveMessage);
-			}
-		});
+		const serverReceiveSpy = jasmine.createSpy('serverReceiveSpy').and.callFake(() => server.emit(receiveMessage));
 
-		clientBuffer.setReceiveSource(serverBuffer.onSend.pipe(delay(10)));
-		client.onReceive.subscribe(clientReceiveSpy);
+		client.bufferSocket.setReceiveSource(server.bufferSocket.onSend.pipe(
+			delay(10),
+			tap(clientReceiveSpy)
+		));
 
-		serverBuffer.setReceiveSource(clientBuffer.onSend.pipe(delay(10)));
-		server.onReceive.subscribe(serverReceiveSpy);
+		server.bufferSocket.setReceiveSource(client.bufferSocket.onSend.pipe(
+			delay(10),
+			tap(serverReceiveSpy)
+		));
 
 		const serverResponse = await client.send(sendMessage)
 			.pipe(first())
 			.toPromise();
 
+		const sendBuffer = client.jsonToBuffer(sendMessage);
+		const receiveBuffer = client.jsonToBuffer(receiveMessage);
+
 		expect(serverResponse).toEqual(receiveMessage);
-		expect(clientReceiveSpy).toHaveBeenCalledWith(receiveMessage);
-		expect(serverReceiveSpy).toHaveBeenCalledWith(sendMessage);
+		expect(serverReceiveSpy).toHaveBeenCalledWith(sendBuffer);
+		expect(clientReceiveSpy).toHaveBeenCalledWith(receiveBuffer);
 	});
 });
