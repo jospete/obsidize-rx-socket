@@ -9,13 +9,13 @@ import { splitInclusive } from './utility';
 export const mapJsonToText = <T>(
 	options: JsonBufferMapOptions = JsonBufferMapUtility.defaultOptions
 ): OperatorFunction<T, string> => source => source.pipe(
-	map(v => JsonBufferMapUtility.jsonToText(v, options))
+	map(v => JsonBufferMapUtility.jsonToStringWithTerminator(v, options))
 );
 
 export const mapTextToBuffer = (
 	options: JsonBufferMapOptions = JsonBufferMapUtility.defaultOptions
 ): OperatorFunction<string, Uint8Array> => source => source.pipe(
-	map(v => options.textToBuffer(v))
+	map(v => options.stringToBuffer(v))
 );
 
 export const mapJsonToBuffer = <T>(
@@ -28,7 +28,7 @@ export const mapJsonToBuffer = <T>(
 export const mapBufferToText = (
 	options: JsonBufferMapOptions = JsonBufferMapUtility.defaultOptions
 ): OperatorFunction<Uint8Array, string> => source => source.pipe(
-	map(v => options.bufferToText(v))
+	map(v => options.bufferToString(v))
 );
 
 export const bufferUntilTerminator = (
@@ -49,7 +49,7 @@ export const bufferUntilTerminatorExclusive = (
 export const mapTextToJson = <T>(
 	options: JsonBufferMapOptions = JsonBufferMapUtility.defaultOptions
 ): OperatorFunction<string, T> => source => source.pipe(
-	map(v => options.textToJson(v))
+	map(v => options.stringToJson(v))
 );
 
 export const mapBufferToJson = <T>(

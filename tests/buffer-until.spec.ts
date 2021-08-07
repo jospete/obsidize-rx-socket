@@ -3,7 +3,6 @@ import { toArray } from 'rxjs/operators';
 
 import { bufferUntil } from '../src';
 
-
 describe('bufferUntil', () => {
 
 	it('collects source emissions until the given predicate returns true for a particular state', async () => {

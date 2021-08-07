@@ -1,9 +1,9 @@
 export interface JsonBufferMapOptions {
 	terminator: string;
-	jsonToText(value: any): string;
-	textToJson(value: string): any;
-	textToBuffer(value: string): Uint8Array;
-	bufferToText(value: Uint8Array): string;
+	jsonToString(value: any): string;
+	stringToBuffer(value: string): Uint8Array;
+	bufferToString(value: Uint8Array): string;
+	stringToJson(value: string): any;
 }
 
 export namespace JsonBufferMapUtility {
@@ -16,32 +16,38 @@ export namespace JsonBufferMapUtility {
 
 	export const defaultOptions: JsonBufferMapOptions = {
 		terminator: NULL_TERMINATOR,
-		jsonToText: jsonToString,
-		textToJson: stringToJson,
-		textToBuffer: stringToUint8Array,
-		bufferToText: uint8ArrayToString,
+		jsonToString: jsonToString,
+		stringToBuffer: stringToUint8Array,
+		bufferToString: uint8ArrayToString,
+		stringToJson: stringToJson,
 	};
 
-	export const jsonToText = (
+	export const createOptions = (
+		customOptions: Partial<JsonBufferMapOptions>
+	): JsonBufferMapOptions => {
+		return Object.assign({}, defaultOptions, customOptions);
+	};
+
+	export const jsonToStringWithTerminator = (
 		value: any,
 		options: JsonBufferMapOptions = defaultOptions
 	): string => {
-		return options.jsonToText(value) + options.terminator;
+		return options.jsonToString(value) + options.terminator;
 	};
 
 	export const jsonToBuffer = (
 		value: any,
 		options: JsonBufferMapOptions = defaultOptions
 	): Uint8Array => {
-		const text = jsonToText(value, options);
-		return options.textToBuffer(text);
+		const text = jsonToStringWithTerminator(value, options);
+		return options.stringToBuffer(text);
 	};
 
-	export const bufferToTextWithoutTerminator = (
+	export const bufferToStringWithoutTerminator = (
 		value: Uint8Array,
 		options: JsonBufferMapOptions = defaultOptions
 	): string => {
-		const textWithTerminator = options.bufferToText(value);
+		const textWithTerminator = options.bufferToString(value);
 		const terminatorPosition = textWithTerminator.lastIndexOf(options.terminator);
 		return terminatorPosition < 0 ? textWithTerminator : textWithTerminator.substring(0, terminatorPosition);
 	};
@@ -50,7 +56,7 @@ export namespace JsonBufferMapUtility {
 		value: Uint8Array,
 		options: JsonBufferMapOptions = defaultOptions
 	): any => {
-		const text = bufferToTextWithoutTerminator(value, options)
-		return options.textToJson(text);
+		const text = bufferToStringWithoutTerminator(value, options)
+		return options.stringToJson(text);
 	};
 }
