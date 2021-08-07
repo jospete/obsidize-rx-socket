@@ -1,4 +1,6 @@
+export * from './buffer-until';
 export * from './destroyable';
+export * from './json-buffer-map-options';
 export * from './operators';
 export * from './proxy-observable';
 export * from './rx-json-socket';
