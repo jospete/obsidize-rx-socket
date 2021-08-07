@@ -12,9 +12,9 @@ describe('RxJsonSocket', () => {
 
 		const receiveSource = new Subject<Uint8Array>();
 		const socket = new RxJsonSocket();
-		const socketBuffer = socket.bufferSocket;
+		const socketBuffer = socket.bufferStream;
 
-		socketBuffer.setReceiveSource(receiveSource);
+		socket.setBufferReceiveSource(receiveSource);
 
 		const sendResultPromise = socketBuffer.onSend.pipe(first()).toPromise();
 		const receiveResultPromise = socketBuffer.onReceive.pipe(first()).toPromise();

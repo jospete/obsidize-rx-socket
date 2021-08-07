@@ -1,6 +1,6 @@
 import { delay, first, tap } from 'rxjs/operators';
 
-import { JsonBufferMapUtility, RxJsonSocket } from '../src';
+import { RxJsonSocket } from '../src';
 
 describe('General Usage', () => {
 
@@ -15,12 +15,12 @@ describe('General Usage', () => {
 		const server = new RxJsonSocket();
 		const serverReceiveSpy = jasmine.createSpy('serverReceiveSpy').and.callFake(() => server.emit(receiveMessage));
 
-		client.bufferSocket.setReceiveSource(server.bufferSocket.onSend.pipe(
+		client.setBufferReceiveSource(server.bufferStream.onSend.pipe(
 			delay(10),
 			tap(clientReceiveSpy)
 		));
 
-		server.bufferSocket.setReceiveSource(client.bufferSocket.onSend.pipe(
+		server.setBufferReceiveSource(client.bufferStream.onSend.pipe(
 			delay(10),
 			tap(serverReceiveSpy)
 		));

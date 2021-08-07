@@ -1,4 +1,4 @@
-import { splitInclusive } from '../src';
+import { destroySubject, splitInclusive } from '../src';
 
 describe('utility', () => {
 
@@ -15,6 +15,13 @@ describe('utility', () => {
 
 		it('includes ending separators', () => {
 			expect(splitInclusive('test\0', '\0')).toEqual(['test', '\0']);
+		});
+	});
+
+	describe('destroySubject', () => {
+
+		it('does not explode when given invalid input', () => {
+			expect(() => destroySubject(null)).not.toThrowError();
 		});
 	});
 });

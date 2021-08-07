@@ -45,4 +45,8 @@ describe('JsonBufferMapOptions', () => {
 
 		expect(JsonBufferMapUtility.bufferToStringWithoutTerminator(messageBuffer)).toEqual(messageText);
 	});
+
+	it('does not double-serialize json strings by default', () => {
+		expect(JsonBufferMapUtility.jsonToString('test')).toBe('test');
+	});
 });
