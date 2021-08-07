@@ -23,8 +23,7 @@ export class RxJsonSocket extends RxSocketSubject<any> {
 	}
 
 	public setBufferSocket(bufferSocket: RxSocketSubject<Uint8Array>): void {
-		if (!bufferSocket) return;
-		bufferSocket.setReceiveSource(this.onSend.pipe(mapJsonToBuffer(this.options)));
+		bufferSocket.setSendSource(this.onSend.pipe(mapJsonToBuffer(this.options)));
 		this.setReceiveSource(bufferSocket.onReceive.pipe(mapBufferToJson(this.options)));
 	}
 
