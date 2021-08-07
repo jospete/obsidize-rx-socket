@@ -14,9 +14,23 @@ export class RxJsonSocket extends RxSocketSubject<any> {
 		super();
 	}
 
-	public pipeTransformBufferSocket(bufferSocket: RxSocketSubject<Uint8Array>): void {
+	public jsonToBuffer(value: any): Uint8Array {
+		return JsonBufferMapUtility.jsonToBuffer(value, this.options);
+	}
+
+	public bufferToJson(value: Uint8Array): any {
+		return JsonBufferMapUtility.bufferToJson(value, this.options);
+	}
+
+	public setBufferSocket(bufferSocket: RxSocketSubject<Uint8Array>): void {
 		if (!bufferSocket) return;
-		bufferSocket.setSendSource(this.onSend.pipe(mapJsonToBuffer(this.options)));
+		bufferSocket.setReceiveSource(this.onSend.pipe(mapJsonToBuffer(this.options)));
 		this.setReceiveSource(bufferSocket.onReceive.pipe(mapBufferToJson(this.options)));
+	}
+
+	public createBufferSocket(): RxSocketSubject<Uint8Array> {
+		const result = new RxSocketSubject<Uint8Array>();
+		this.setBufferSocket(result);
+		return result;
 	}
 }

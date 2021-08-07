@@ -9,7 +9,7 @@ import { splitInclusive } from './utility';
 export const mapJsonToText = <T>(
 	options: JsonBufferMapOptions = JsonBufferMapUtility.defaultOptions
 ): OperatorFunction<T, string> => source => source.pipe(
-	map(v => options.jsonToText(v) + options.terminator)
+	map(v => JsonBufferMapUtility.jsonToText(v, options))
 );
 
 export const mapTextToBuffer = (

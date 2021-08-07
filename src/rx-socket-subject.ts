@@ -1,10 +1,12 @@
-import { defer, merge, Observable, Subject, Subscribable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { merge, defer, Observable, Subject, Subscribable } from 'rxjs';
+import { ignoreElements } from 'rxjs/operators';
 
 import { RxSocket } from './rx-socket';
 import { Destroyable } from './destroyable';
 import { ProxyObservable } from './proxy-observable';
-import { destroySubject, isSubjectDestroyed } from './utility';
+import { destroySubject, isSubjectDestroyed, isSubscribable } from './utility';
+
+export type SendAction<T> = (value: T) => Observable<any>;
 
 /**
  * Defines a 2-way duplex stream, where the caller can
@@ -14,61 +16,67 @@ import { destroySubject, isSubjectDestroyed } from './utility';
  */
 export class RxSocketSubject<T> extends RxSocket<T> implements Destroyable {
 
-	protected readonly sendTriggerSubject: Subject<T>;
+	protected readonly mOnSendSubject: Subject<T>;
 	protected readonly onSendProxy: ProxyObservable<T>;
 	protected readonly onReceiveProxy: ProxyObservable<T>;
 
-	constructor() {
+	constructor(
+		onSend?: Subscribable<T>,
+		onReceive?: Subscribable<T>
+	) {
 
+		const sendSubject = new Subject<T>();
 		const sendProxy = new ProxyObservable<T>();
 		const receiveProxy = new ProxyObservable<T>();
+
 		super(sendProxy.onNext, receiveProxy.onNext);
 
-		this.sendTriggerSubject = new Subject<T>();
+		this.mOnSendSubject = sendSubject;
 		this.onSendProxy = sendProxy;
 		this.onReceiveProxy = receiveProxy;
+
+		this.pipe(onSend!, onReceive!);
 	}
 
-	protected emitSendValue(value: T): void {
-		this.sendTriggerSubject.next(value);
+	public destroy(errorMessage?: string): void {
+		destroySubject(this.mOnSendSubject);
+		this.onSendProxy.destroy(errorMessage);
+		this.onReceiveProxy.destroy(errorMessage);
+	}
+
+	public isDestroyed(): boolean {
+		return isSubjectDestroyed(this.mOnSendSubject)
+			&& this.onSendProxy.isDestroyed()
+			&& this.onReceiveProxy.isDestroyed();
+	}
+
+	public emit(value: T): void {
+		this.mOnSendSubject.next(value);
 	}
 
 	public setReceiveSource(source: Subscribable<T>): void {
 		this.onReceiveProxy.setSource(source);
 	}
 
-	public setSendSource(source: Subscribable<T> | null): void {
-		const compositeSource = source
-			? merge(this.sendTriggerSubject, source)
-			: this.sendTriggerSubject;
-		this.onSendProxy.setSource(compositeSource);
-	}
-
-	public destroy(errorMessage?: string): void {
-		destroySubject(this.sendTriggerSubject);
-		this.onSendProxy.destroy(errorMessage);
-		this.onReceiveProxy.destroy(errorMessage);
-	}
-
-	public isDestroyed(): boolean {
-		return isSubjectDestroyed(this.sendTriggerSubject)
-			&& this.onSendProxy.isDestroyed()
-			&& this.onReceiveProxy.isDestroyed();
+	public setSendSource(source: Subscribable<T>): void {
+		const sendObservable = this.mOnSendSubject.asObservable();
+		const combinedSource = isSubscribable(source) ? merge(source, sendObservable) : sendObservable;
+		this.onSendProxy.setSource(combinedSource);
 	}
 
 	public send(value: T): Observable<T> {
-		return defer(async () => this.emitSendValue(value)).pipe(
-			switchMap(() => this.onReceive)
+		return merge(
+			defer(() => Promise.resolve(this.emit(value))).pipe(ignoreElements()),
+			this.onReceive
 		);
 	}
 
-	public redirectTo(destination: RxSocketSubject<T>): void {
-		destination.setSendSource(this.onSend);
-		this.setReceiveSource(destination.onReceive);
+	public pipe(onSend: Subscribable<T>, onReceive: Subscribable<T>): void {
+		this.setSendSource(onSend);
+		this.setReceiveSource(onReceive);
 	}
 
-	public mask(sendSource: Subscribable<T>, receiveSource: Subscribable<T>): void {
-		this.setSendSource(sendSource);
-		this.setReceiveSource(receiveSource);
+	public pipeTo(destination: RxSocket<T>): void {
+		this.pipe(destination.onSend, destination.onReceive);
 	}
 }

@@ -21,4 +21,36 @@ export namespace JsonBufferMapUtility {
 		textToBuffer: stringToUint8Array,
 		bufferToText: uint8ArrayToString,
 	};
+
+	export const jsonToText = (
+		value: any,
+		options: JsonBufferMapOptions = defaultOptions
+	): string => {
+		return options.jsonToText(value) + options.terminator;
+	};
+
+	export const jsonToBuffer = (
+		value: any,
+		options: JsonBufferMapOptions = defaultOptions
+	): Uint8Array => {
+		const text = jsonToText(value, options);
+		return options.textToBuffer(text);
+	};
+
+	export const bufferToTextWithoutTerminator = (
+		value: Uint8Array,
+		options: JsonBufferMapOptions = defaultOptions
+	): string => {
+		const textWithTerminator = options.bufferToText(value);
+		const terminatorPosition = textWithTerminator.lastIndexOf(options.terminator);
+		return terminatorPosition < 0 ? textWithTerminator : textWithTerminator.substring(0, terminatorPosition);
+	};
+
+	export const bufferToJson = (
+		value: Uint8Array,
+		options: JsonBufferMapOptions = defaultOptions
+	): any => {
+		const text = bufferToTextWithoutTerminator(value, options)
+		return options.textToJson(text);
+	};
 }
