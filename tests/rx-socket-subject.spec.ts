@@ -1,5 +1,7 @@
 import { Subject } from 'rxjs';
-import { delay, first, take } from 'rxjs/operators';
+import { delay, first } from 'rxjs/operators';
+import { get } from 'lodash';
+
 import { RxSocketSubject } from '../src';
 
 describe('RxSocketSubject', () => {
@@ -78,5 +80,11 @@ describe('RxSocketSubject', () => {
 
 		const receiveResult = await receiveResultPromise;
 		expect(receiveResult).toBe(1234);
+	});
+
+	it('can be made read-only', () => {
+		const subject = new RxSocketSubject();
+		const readonlySubject = subject.toReadOnly();
+		expect(get(readonlySubject, 'emit')).not.toBeDefined();
 	});
 });
