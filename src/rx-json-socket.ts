@@ -1,4 +1,5 @@
-import { defaultJsonBufferMapOptions, JsonBufferMapOptions, mapBufferToJson, mapJsonToBuffer } from './operators';
+import { JsonBufferMapOptions, JsonBufferMapUtility } from './json-buffer-map-options';
+import { mapBufferToJson, mapJsonToBuffer } from './operators';
 import { RxSocketSubject } from './rx-socket-subject';
 
 /**
@@ -8,7 +9,7 @@ import { RxSocketSubject } from './rx-socket-subject';
 export class RxJsonSocket extends RxSocketSubject<any> {
 
 	constructor(
-		public options: JsonBufferMapOptions = defaultJsonBufferMapOptions
+		public options: JsonBufferMapOptions = JsonBufferMapUtility.defaultOptions
 	) {
 		super();
 	}

@@ -3,7 +3,6 @@ import { switchMap } from 'rxjs/operators';
 
 import { RxSocket } from './rx-socket';
 import { Destroyable } from './destroyable';
-import { TransformDuplex } from './transform-duplex';
 import { ProxyObservable } from './proxy-observable';
 import { destroySubject, isSubjectDestroyed } from './utility';
 
@@ -63,19 +62,13 @@ export class RxSocketSubject<T> extends RxSocket<T> implements Destroyable {
 		);
 	}
 
-	public pipe(destination: RxSocketSubject<T>): void {
+	public redirectTo(destination: RxSocketSubject<T>): void {
 		destination.setSendSource(this.onSend);
 		this.setReceiveSource(destination.onReceive);
 	}
 
-	public pipeTransform<V>(destination: RxSocketSubject<V>, duplex: TransformDuplex<T, V>): void {
-		destination.setSendSource(this.sendAs(duplex.encode));
-		this.setReceiveSource(destination.receiveAs(duplex.decode));
-	}
-
-	public transform<V>(duplex: TransformDuplex<T, V>): RxSocketSubject<V> {
-		const result = new RxSocketSubject<V>();
-		this.pipeTransform(result, duplex);
-		return result;
+	public mask(sendSource: Subscribable<T>, receiveSource: Subscribable<T>): void {
+		this.setSendSource(sendSource);
+		this.setReceiveSource(receiveSource);
 	}
 }
