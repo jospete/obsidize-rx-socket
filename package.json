@@ -1,6 +1,6 @@
 {
   "name": "@obsidize/rx-socket",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Typescript socket implementation backed by rxjs streams",
   "main": "es5.js",
   "module": "index.js",
