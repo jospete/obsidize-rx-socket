@@ -1,7 +1,7 @@
 import { Observable, Subscribable } from 'rxjs';
 
 import { JsonBufferMapOptions, JsonBufferMapUtility } from './json-buffer-map-options';
-import { mapBufferToJson, mapJsonToBuffer } from './operators';
+import { mapBufferToString, mapJsonToString, mapStringToBuffer, mapStringToTerminatedJson } from './operators';
 import { RxSocketSubject } from './rx-socket-subject';
 
 /**
@@ -10,10 +10,12 @@ import { RxSocketSubject } from './rx-socket-subject';
  */
 export class RxJsonSocket {
 
-	protected readonly jsonStreamSubject = new RxSocketSubject<Uint8Array>();
+	protected readonly jsonStreamSubject = new RxSocketSubject<any>();
+	protected readonly textStreamSubject = new RxSocketSubject<string>();
 	protected readonly bufferStreamSubject = new RxSocketSubject<Uint8Array>();
 
 	public readonly jsonStream = this.jsonStreamSubject.toReadOnly();
+	public readonly textStream = this.textStreamSubject.toReadOnly();
 	public readonly bufferStream = this.bufferStreamSubject.toReadOnly();
 
 	constructor(
@@ -44,12 +46,20 @@ export class RxJsonSocket {
 
 	protected linkStreams(): void {
 
+		this.textStreamSubject.setSendSource(
+			this.jsonStream.onSend.pipe(mapJsonToString(this.options))
+		);
+
 		this.bufferStreamSubject.setSendSource(
-			this.jsonStream.onSend.pipe(mapJsonToBuffer(this.options))
+			this.textStream.onSend.pipe(mapStringToBuffer(this.options))
+		);
+
+		this.textStreamSubject.setReceiveSource(
+			this.bufferStream.onReceive.pipe(mapBufferToString(this.options))
 		);
 
 		this.jsonStreamSubject.setReceiveSource(
-			this.bufferStream.onReceive.pipe(mapBufferToJson(this.options))
+			this.textStream.onReceive.pipe(mapStringToTerminatedJson(this.options))
 		);
 	}
 }

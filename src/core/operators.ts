@@ -54,11 +54,17 @@ export const mapStringToJson = <T>(
 	map(v => options.stringToJson(v))
 );
 
+export const mapStringToTerminatedJson = <T>(
+	options: JsonBufferMapOptions = JsonBufferMapUtility.defaultOptions
+): OperatorFunction<string, T> => source => source.pipe(
+	bufferUntilTerminatorExclusive(options),
+	map(v => join(v, '')),
+	mapStringToJson(options)
+);
+
 export const mapBufferToJson = <T>(
 	options: JsonBufferMapOptions = JsonBufferMapUtility.defaultOptions
 ): OperatorFunction<Uint8Array, T> => source => source.pipe(
 	mapBufferToString(options),
-	bufferUntilTerminatorExclusive(options),
-	map(v => join(v, '')),
-	mapStringToJson(options)
+	mapStringToTerminatedJson(options)
 );
