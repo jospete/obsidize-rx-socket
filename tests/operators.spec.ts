@@ -10,7 +10,8 @@ import {
 	mapJsonToBuffer,
 	mapJsonToString,
 	mapStringToBuffer,
-	mapStringToJson
+	mapStringToJson,
+	mapStringToTerminatedJson
 } from '../src';
 
 describe('operators', () => {
@@ -40,6 +41,13 @@ describe('operators', () => {
 			const result = await of(input).pipe(mapJsonToBuffer(), first()).toPromise();
 			expect(result).toEqual(JsonBufferMapUtility.jsonToBuffer(input));
 		});
+
+		it('uses custom options when they are given', async () => {
+			const input = { message: 'hello' };
+			const options = JsonBufferMapUtility.createOptions({ terminator: 'test' });
+			const result = await of(input).pipe(mapJsonToBuffer(options), first()).toPromise();
+			expect(result).toEqual(JsonBufferMapUtility.jsonToBuffer(input, options));
+		});
 	});
 
 	describe('mapBufferToString()', () => {
@@ -63,7 +71,7 @@ describe('operators', () => {
 
 	describe('bufferUntilTerminatorExclusive()', () => {
 
-		it('collects values ntila a terminator is found, and omits the terminator from the output', async () => {
+		it('collects values until a terminator is found, and omits the terminator from the output', async () => {
 			const input = ['{"message":', '"hello', '"}', JsonBufferMapUtility.NULL_TERMINATOR, 'extra stuff'];
 			const result = await from(input).pipe(bufferUntilTerminatorExclusive(), first()).toPromise();
 			expect(result).toEqual(['{"message":', '"hello', '"}']);
@@ -72,17 +80,33 @@ describe('operators', () => {
 
 	describe('mapStringToJson()', () => {
 
-		it('collects values ntila a terminator is found, and omits the terminator from the output', async () => {
+		it('performs a direct json parse on source inputs', async () => {
 			const result = await of('{"message":"hello"}').pipe(mapStringToJson(), first()).toPromise();
+			expect(result).toEqual({ message: 'hello' });
+		});
+	});
+
+	describe('mapStringToTerminatedJson()', () => {
+
+		it('collects values until a terminator is found, and omits the terminator from the output', async () => {
+			const input = '{"message":"hello"}' + JsonBufferMapUtility.NULL_TERMINATOR;
+			const result = await of(input).pipe(mapStringToTerminatedJson(), first()).toPromise();
 			expect(result).toEqual({ message: 'hello' });
 		});
 	});
 
 	describe('mapBufferToJson()', () => {
 
-		it('collects values ntila a terminator is found, and omits the terminator from the output', async () => {
+		it('collects values until a terminator is found, and omits the terminator from the output', async () => {
 			const input = JsonBufferMapUtility.jsonToBuffer({ message: "hello" });
 			const result = await of(input).pipe(mapBufferToJson(), first()).toPromise();
+			expect(result).toEqual({ message: 'hello' });
+		});
+
+		it('accepts custom options as an argument', async () => {
+			const options = JsonBufferMapUtility.createOptions({ terminator: 'test' });
+			const input = JsonBufferMapUtility.jsonToBuffer({ message: "hello" }, options);
+			const result = await of(input).pipe(mapBufferToJson(options), first()).toPromise();
 			expect(result).toEqual({ message: 'hello' });
 		});
 	});
