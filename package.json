@@ -1,6 +1,6 @@
 {
   "name": "@obsidize/rx-socket",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Typescript socket implementation backed by rxjs streams",
   "main": "es5.js",
   "module": "index.js",
@@ -26,7 +26,7 @@
     "release:publish": "run-s git:publish dist:publish",
     "release:prepare:patch": "npm run release:prepare -- --release-as patch",
     "bump": "run-s release:prepare:patch release:test release:publish",
-    "docs": "typedoc ./src/index.ts --out ./docs",
+    "docs": "typedoc ./src/index.ts --out ./docs --excludePrivate",
     "docs:open": "open-cli \".\\docs\\index.html\""
   },
   "repository": {
