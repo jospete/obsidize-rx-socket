@@ -1,10 +1,9 @@
 import { from, OperatorFunction } from 'rxjs';
 import { filter, map, mergeMap } from 'rxjs/operators';
-import { identity, join, slice, size } from 'lodash';
 
 import { JsonBufferMapOptions, JsonBufferMapUtility } from './json-buffer-map-options';
 import { bufferUntil } from './buffer-until';
-import { splitInclusive } from './utility';
+import { splitInclusive, identity } from './utility';
 
 export const mapJsonToString = <T>(
 	options: JsonBufferMapOptions = JsonBufferMapUtility.defaultOptions
@@ -35,7 +34,7 @@ export const bufferUntilTerminator = (
 	options: JsonBufferMapOptions = JsonBufferMapUtility.defaultOptions
 ): OperatorFunction<string, string[]> => source => source.pipe(
 	map(str => splitInclusive(str, options.terminator).filter(identity)),
-	filter(strArray => size(strArray) > 0),
+	filter(strArray => !!strArray && strArray.length > 0),
 	mergeMap(strArray => from(strArray)),
 	filter(identity),
 	bufferUntil(v => v === options.terminator),
@@ -45,7 +44,10 @@ export const bufferUntilTerminatorExclusive = (
 	options: JsonBufferMapOptions = JsonBufferMapUtility.defaultOptions
 ): OperatorFunction<string, string[]> => source => source.pipe(
 	bufferUntilTerminator(options),
-	map(v => slice(v, 0, size(v) - 1))
+	map(v => {
+		const safeArray = Array.from(v);
+		return safeArray.slice(0, safeArray.length - 1)
+	})
 );
 
 export const mapStringToJson = <T>(
@@ -58,7 +60,7 @@ export const mapStringToTerminatedJson = <T>(
 	options: JsonBufferMapOptions = JsonBufferMapUtility.defaultOptions
 ): OperatorFunction<string, T> => source => source.pipe(
 	bufferUntilTerminatorExclusive(options),
-	map(v => join(v, '')),
+	map(v => Array.from(v).join('')),
 	mapStringToJson(options)
 );
 

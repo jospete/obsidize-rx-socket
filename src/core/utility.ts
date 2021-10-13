@@ -1,39 +1,54 @@
-import { isFunction, get, every, forEach, split, isString, isEmpty } from 'lodash';
 import { Subject } from 'rxjs';
 
-export const isSubscribable = (value: any): boolean => {
-	return isFunction(get(value, 'subscribe'));
-};
+export function identity<T>(value: T, ..._args: any[]): any {
+	return value;
+}
 
-export const isUnsubscribable = (value: any): boolean => {
-	return isFunction(get(value, 'unsubscribe'));
-};
+export function isFunction(value: any): boolean {
+	return typeof value === 'function';
+}
 
-export const isErrorable = (value: any): boolean => {
-	return isFunction(get(value, 'error'));
-};
+export function isString(value: any): boolean {
+	return typeof value === 'string';
+}
 
-export const destroySubject = (subject: Subject<any>, errorMessage: string = 'destroyed'): void => {
+export function toString(value: any): string {
+	return value + '';
+}
+
+export function isSubscribable(value: any): boolean {
+	return !!value && isFunction(value.subscribe);
+}
+
+export function isUnsubscribable(value: any): boolean {
+	return !!value && isFunction(value.unsubscribe);
+}
+
+export function isErrorable(value: any): boolean {
+	return !!value && isFunction(value.error);
+}
+
+export function destroySubject(subject: Subject<any>, errorMessage: string = 'destroyed'): void {
 	if (isErrorable(subject)) subject.error(errorMessage);
 	if (isUnsubscribable(subject)) subject.unsubscribe();
-};
+}
 
-export const destroyAllSubjects = (subjects: Subject<any>[], errorMessage?: string): void => {
-	forEach(subjects, s => destroySubject(s, errorMessage));
-};
+export function destroyAllSubjects(subjects: Subject<any>[], errorMessage?: string): void {
+	Array.from(subjects).forEach(s => destroySubject(s, errorMessage));
+}
 
-export const isSubjectDestroyed = (subject: Subject<any>): boolean => {
+export function isSubjectDestroyed(subject: Subject<any>): boolean {
 	return !subject || (subject.closed && subject.isStopped);
-};
+}
 
-export const allSubjectsDestroyed = (subjects: Subject<any>[]): boolean => {
-	return every(subjects, isSubjectDestroyed);
-};
+export function allSubjectsDestroyed(subjects: Subject<any>[]): boolean {
+	return Array.from(subjects).every(isSubjectDestroyed);
+}
 
-export const isPopulatedString = (value: any): boolean => {
-	return isString(value) && !isEmpty(value);
-};
+export function isPopulatedString(value: any): boolean {
+	return isString(value) && value.length > 0;
+}
 
-export const splitInclusive = (value: string, separator: string): string[] => {
-	return split(value, new RegExp('(' + separator + ')', 'g')).filter(isPopulatedString);
-};
+export function splitInclusive(value: string, separator: string): string[] {
+	return toString(value).split(new RegExp('(' + separator + ')', 'g')).filter(isPopulatedString);
+}

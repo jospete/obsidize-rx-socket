@@ -1,6 +1,6 @@
 import { OperatorFunction, concat, defer } from 'rxjs';
 import { filter, map, scan } from 'rxjs/operators';
-import { identity } from 'lodash';
+import { identity } from './utility';
 
 export interface BufferUntilState<T> {
 	buffer: T[];

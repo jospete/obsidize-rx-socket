@@ -1,4 +1,4 @@
-import { isString } from 'lodash';
+import { isString } from './utility';
 
 export interface JsonBufferMapOptions {
 	terminator: string;

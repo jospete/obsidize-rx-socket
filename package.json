@@ -1,6 +1,6 @@
 {
   "name": "@obsidize/rx-socket",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Typescript socket implementation backed by rxjs streams",
   "main": "es5.js",
   "module": "index.js",
@@ -44,15 +44,13 @@
   "author": "Josh Noel <obsidize@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "lodash": "^4.17.21",
     "tslib": "^2.3.0"
   },
   "peerDependencies": {
-    "rxjs": ">= 6.2"
+    "rxjs": ">=6.2"
   },
   "devDependencies": {
     "@types/jasmine": "~3.6.3",
-    "@types/lodash": "4.14.171",
     "cpy-cli": "~3.1.1",
     "jasmine-core": "~3.6.0",
     "karma": "~6.1.1",

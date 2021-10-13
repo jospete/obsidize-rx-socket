@@ -100,8 +100,11 @@
 								<li class="tsd-kind-function"><a href="modules.html#bufferUntilTerminatorExclusive" class="tsd-kind-icon">buffer<wbr>Until<wbr>Terminator<wbr>Exclusive</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#destroyAllSubjects" class="tsd-kind-icon">destroy<wbr>All<wbr>Subjects</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#destroySubject" class="tsd-kind-icon">destroy<wbr>Subject</a></li>
+								<li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#identity" class="tsd-kind-icon">identity</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#isErrorable" class="tsd-kind-icon">is<wbr>Errorable</a></li>
+								<li class="tsd-kind-function"><a href="modules.html#isFunction" class="tsd-kind-icon">is<wbr>Function</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#isPopulatedString" class="tsd-kind-icon">is<wbr>Populated<wbr>String</a></li>
+								<li class="tsd-kind-function"><a href="modules.html#isString" class="tsd-kind-icon">is<wbr>String</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#isSubjectDestroyed" class="tsd-kind-icon">is<wbr>Subject<wbr>Destroyed</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#isSubscribable" class="tsd-kind-icon">is<wbr>Subscribable</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#isUnsubscribable" class="tsd-kind-icon">is<wbr>Unsubscribable</a></li>
@@ -114,6 +117,7 @@
 								<li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#mapStringToTerminatedJson" class="tsd-kind-icon">map<wbr>String<wbr>ToTerminated<wbr>Json</a></li>
 								<li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#mutateBufferUntilState" class="tsd-kind-icon">mutate<wbr>Buffer<wbr>Until<wbr>State</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#splitInclusive" class="tsd-kind-icon">split<wbr>Inclusive</a></li>
+								<li class="tsd-kind-function"><a href="modules.html#toString" class="tsd-kind-icon">to<wbr>String</a></li>
 							</ul>
 						</section>
 					</div>
@@ -127,7 +131,7 @@
 					<div class="tsd-signature tsd-kind-icon">Buffer<wbr>Until<wbr>Predicate&lt;T&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, state<span class="tsd-signature-symbol">: </span><a href="interfaces/BufferUntilState.html" class="tsd-signature-type" data-tsd-kind="Interface">BufferUntilState</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/71066f0/src/core/buffer-until.ts#L10">core/buffer-until.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/c917f3a/src/core/buffer-until.ts#L10">core/buffer-until.ts:10</a></li>
 						</ul>
 					</aside>
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -167,7 +171,7 @@
 					<div class="tsd-signature tsd-kind-icon">Send<wbr>Action&lt;T&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/71066f0/src/core/rx-socket-subject.ts#L9">core/rx-socket-subject.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/c917f3a/src/core/rx-socket-subject.ts#L9">core/rx-socket-subject.ts:9</a></li>
 						</ul>
 					</aside>
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -203,7 +207,7 @@
 				<h2>Functions</h2>
 				<section class="tsd-panel tsd-member tsd-kind-function">
 					<a name="allSubjectsDestroyed" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> all<wbr>Subjects<wbr>Destroyed</h3>
+					<h3>all<wbr>Subjects<wbr>Destroyed</h3>
 					<ul class="tsd-signatures tsd-kind-function">
 						<li class="tsd-signature tsd-kind-icon">all<wbr>Subjects<wbr>Destroyed<span class="tsd-signature-symbol">(</span>subjects<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Subject</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
@@ -211,7 +215,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/71066f0/src/core/utility.ts#L29">core/utility.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/c917f3a/src/core/utility.ts#L44">core/utility.ts:44</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -234,7 +238,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/71066f0/src/core/buffer-until.ts#L40">core/buffer-until.ts:40</a></li>
+									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/c917f3a/src/core/buffer-until.ts#L40">core/buffer-until.ts:40</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -272,7 +276,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/71066f0/src/core/operators.ts#L34">core/operators.ts:34</a></li>
+									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/c917f3a/src/core/operators.ts#L33">core/operators.ts:33</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -295,7 +299,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/71066f0/src/core/operators.ts#L44">core/operators.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/c917f3a/src/core/operators.ts#L43">core/operators.ts:43</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -310,7 +314,7 @@
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function">
 					<a name="destroyAllSubjects" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> destroy<wbr>All<wbr>Subjects</h3>
+					<h3>destroy<wbr>All<wbr>Subjects</h3>
 					<ul class="tsd-signatures tsd-kind-function">
 						<li class="tsd-signature tsd-kind-icon">destroy<wbr>All<wbr>Subjects<span class="tsd-signature-symbol">(</span>subjects<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Subject</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span>, errorMessage<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
@@ -318,7 +322,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/71066f0/src/core/utility.ts#L21">core/utility.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/c917f3a/src/core/utility.ts#L36">core/utility.ts:36</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -336,7 +340,7 @@
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function">
 					<a name="destroySubject" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> destroy<wbr>Subject</h3>
+					<h3>destroy<wbr>Subject</h3>
 					<ul class="tsd-signatures tsd-kind-function">
 						<li class="tsd-signature tsd-kind-icon">destroy<wbr>Subject<span class="tsd-signature-symbol">(</span>subject<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Subject</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span>, errorMessage<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
@@ -344,7 +348,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/71066f0/src/core/utility.ts#L16">core/utility.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/c917f3a/src/core/utility.ts#L31">core/utility.ts:31</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -360,9 +364,41 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-has-type-parameter">
+					<a name="identity" class="tsd-anchor"></a>
+					<h3>identity</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">identity&lt;T&gt;<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, <span class="tsd-signature-symbol">...</span>_args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/c917f3a/src/core/utility.ts#L3">core/utility.ts:3</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>T</h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <span class="tsd-signature-type">T</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>_args: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function">
 					<a name="isErrorable" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> is<wbr>Errorable</h3>
+					<h3>is<wbr>Errorable</h3>
 					<ul class="tsd-signatures tsd-kind-function">
 						<li class="tsd-signature tsd-kind-icon">is<wbr>Errorable<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
@@ -370,7 +406,30 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/71066f0/src/core/utility.ts#L12">core/utility.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/c917f3a/src/core/utility.ts#L27">core/utility.ts:27</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="isFunction" class="tsd-anchor"></a>
+					<h3>is<wbr>Function</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Function<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/c917f3a/src/core/utility.ts#L7">core/utility.ts:7</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -385,7 +444,7 @@
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function">
 					<a name="isPopulatedString" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> is<wbr>Populated<wbr>String</h3>
+					<h3>is<wbr>Populated<wbr>String</h3>
 					<ul class="tsd-signatures tsd-kind-function">
 						<li class="tsd-signature tsd-kind-icon">is<wbr>Populated<wbr>String<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
@@ -393,7 +452,30 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/71066f0/src/core/utility.ts#L33">core/utility.ts:33</a></li>
+									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/c917f3a/src/core/utility.ts#L48">core/utility.ts:48</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="isString" class="tsd-anchor"></a>
+					<h3>is<wbr>String</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>String<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/c917f3a/src/core/utility.ts#L11">core/utility.ts:11</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -408,7 +490,7 @@
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function">
 					<a name="isSubjectDestroyed" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> is<wbr>Subject<wbr>Destroyed</h3>
+					<h3>is<wbr>Subject<wbr>Destroyed</h3>
 					<ul class="tsd-signatures tsd-kind-function">
 						<li class="tsd-signature tsd-kind-icon">is<wbr>Subject<wbr>Destroyed<span class="tsd-signature-symbol">(</span>subject<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Subject</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
@@ -416,7 +498,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/71066f0/src/core/utility.ts#L25">core/utility.ts:25</a></li>
+									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/c917f3a/src/core/utility.ts#L40">core/utility.ts:40</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -431,7 +513,7 @@
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function">
 					<a name="isSubscribable" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> is<wbr>Subscribable</h3>
+					<h3>is<wbr>Subscribable</h3>
 					<ul class="tsd-signatures tsd-kind-function">
 						<li class="tsd-signature tsd-kind-icon">is<wbr>Subscribable<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
@@ -439,7 +521,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/71066f0/src/core/utility.ts#L4">core/utility.ts:4</a></li>
+									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/c917f3a/src/core/utility.ts#L19">core/utility.ts:19</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -454,7 +536,7 @@
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function">
 					<a name="isUnsubscribable" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> is<wbr>Unsubscribable</h3>
+					<h3>is<wbr>Unsubscribable</h3>
 					<ul class="tsd-signatures tsd-kind-function">
 						<li class="tsd-signature tsd-kind-icon">is<wbr>Unsubscribable<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
@@ -462,7 +544,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/71066f0/src/core/utility.ts#L8">core/utility.ts:8</a></li>
+									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/c917f3a/src/core/utility.ts#L23">core/utility.ts:23</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -485,7 +567,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/71066f0/src/core/operators.ts#L65">core/operators.ts:65</a></li>
+									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/c917f3a/src/core/operators.ts#L67">core/operators.ts:67</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -514,7 +596,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/71066f0/src/core/operators.ts#L28">core/operators.ts:28</a></li>
+									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/c917f3a/src/core/operators.ts#L27">core/operators.ts:27</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -537,7 +619,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/71066f0/src/core/operators.ts#L21">core/operators.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/c917f3a/src/core/operators.ts#L20">core/operators.ts:20</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -566,7 +648,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/71066f0/src/core/operators.ts#L9">core/operators.ts:9</a></li>
+									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/c917f3a/src/core/operators.ts#L8">core/operators.ts:8</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -595,7 +677,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/71066f0/src/core/operators.ts#L15">core/operators.ts:15</a></li>
+									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/c917f3a/src/core/operators.ts#L14">core/operators.ts:14</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -618,7 +700,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/71066f0/src/core/operators.ts#L51">core/operators.ts:51</a></li>
+									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/c917f3a/src/core/operators.ts#L53">core/operators.ts:53</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -647,7 +729,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/71066f0/src/core/operators.ts#L57">core/operators.ts:57</a></li>
+									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/c917f3a/src/core/operators.ts#L59">core/operators.ts:59</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -676,7 +758,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/71066f0/src/core/buffer-until.ts#L17">core/buffer-until.ts:17</a></li>
+									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/c917f3a/src/core/buffer-until.ts#L17">core/buffer-until.ts:17</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -710,7 +792,7 @@
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function">
 					<a name="splitInclusive" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> split<wbr>Inclusive</h3>
+					<h3>split<wbr>Inclusive</h3>
 					<ul class="tsd-signatures tsd-kind-function">
 						<li class="tsd-signature tsd-kind-icon">split<wbr>Inclusive<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, separator<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></li>
 					</ul>
@@ -718,7 +800,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/71066f0/src/core/utility.ts#L37">core/utility.ts:37</a></li>
+									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/c917f3a/src/core/utility.ts#L52">core/utility.ts:52</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -731,6 +813,29 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="toString" class="tsd-anchor"></a>
+					<h3>to<wbr>String</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">to<wbr>String<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jospete/obsidize-rx-socket/blob/c917f3a/src/core/utility.ts#L15">core/utility.ts:15</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -794,11 +899,20 @@
 					<li class=" tsd-kind-function">
 						<a href="modules.html#destroySubject" class="tsd-kind-icon">destroy<wbr>Subject</a>
 					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="modules.html#identity" class="tsd-kind-icon">identity</a>
+					</li>
 					<li class=" tsd-kind-function">
 						<a href="modules.html#isErrorable" class="tsd-kind-icon">is<wbr>Errorable</a>
 					</li>
 					<li class=" tsd-kind-function">
+						<a href="modules.html#isFunction" class="tsd-kind-icon">is<wbr>Function</a>
+					</li>
+					<li class=" tsd-kind-function">
 						<a href="modules.html#isPopulatedString" class="tsd-kind-icon">is<wbr>Populated<wbr>String</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#isString" class="tsd-kind-icon">is<wbr>String</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="modules.html#isSubjectDestroyed" class="tsd-kind-icon">is<wbr>Subject<wbr>Destroyed</a>
@@ -835,6 +949,9 @@
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="modules.html#splitInclusive" class="tsd-kind-icon">split<wbr>Inclusive</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#toString" class="tsd-kind-icon">to<wbr>String</a>
 					</li>
 				</ul>
 			</nav>
